@@ -8,13 +8,10 @@ Game::Game(){
 	}
 	mGameObjects = new GameObjectList;
 	mGameObjects->push_back(new Player(this));
-	mGameObjects->push_back(new Coin(this));
 	mGameClock = new sf::Clock;
 	mGameObjectHandler = new GameObjectHandler(this);
 	mWindow = new sf::RenderWindow(config::GAME_RESOLUTION, config::WINDOW_TITLE);
 	mWindow->setFramerateLimit(config::FRAMERATE_LIMIT);
-
-	mMenu = new MenuManager(this);
 	
 	mGameIsntOver = true;
 
@@ -29,7 +26,7 @@ Game::Game(){
 Game::~Game(){
 }
 void Game::run() {
-	frameCounter = 0;
+
 	while (mWindow->isOpen() && mGameIsntOver) {
 		mDeltaTime = mGameClock->restart().asSeconds();
 		sf::Event event;
@@ -42,12 +39,12 @@ void Game::run() {
 		}
 
 		mWindow->clear(config::BACKGROUND_COLOR);
-
 		for (unsigned int i = 0; i < mGameObjects->size(); i++) {
 			mGameObjects->at(i)->update();
 		}
+		mGameObjectHandler->spawnInvaders();
 		mGameObjectHandler->checkForCollisions();
-		mGameObjectHandler->spawnAsteroids();
+		mGameObjectHandler->drawObjects();
 		mGameObjectHandler->pruneGameObjects();
 		mGameObjectHandler->reformGameObjectList();
 
@@ -69,17 +66,5 @@ sf::RenderWindow* Game::getWindow() {
 	return mWindow;
 }
 
-int Game::getLevel()
-{
-	return mLevel;
-}
 
-MenuManager* Game::getMenu()
-{
-	return mMenu;
-}
-
-void Game::increaseLevel(){
-	mLevel++;
-}
 

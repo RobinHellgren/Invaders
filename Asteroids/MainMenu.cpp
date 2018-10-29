@@ -77,53 +77,51 @@ void MainMenu::menuControlls() {
 	while (mGame->getWindow()->pollEvent(event) && mGame->getWindow()->isOpen()) {
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && mCurrentMenuItem == MenuItem::PLAY && mMenu->getInputDelayed()) {
-				mCurrentMenuItem = MenuItem::INTRUCTIONS;
-				mMenuPointer.setPosition(280, 330);
-				mMenu->mInputDelay = 0.0f;
+			mCurrentMenuItem = MenuItem::INTRUCTIONS;
+			mMenuPointer.setPosition(280, 330);
+			mMenu->mInputDelay = 0.0f;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && mCurrentMenuItem == MenuItem::INTRUCTIONS && mMenu->getInputDelayed()) {
-				mCurrentMenuItem = MenuItem::QUIT;
-				mMenuPointer.setPosition(280, 360);
-				mMenu->mInputDelay = 0.0f;
+			mCurrentMenuItem = MenuItem::QUIT;
+			mMenuPointer.setPosition(280, 360);
+			mMenu->mInputDelay = 0.0f;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && mCurrentMenuItem == MenuItem::QUIT && mMenu->getInputDelayed()) {
-				mCurrentMenuItem = MenuItem::INTRUCTIONS;
-				mMenuPointer.setPosition(280, 330);
-				mMenu->mInputDelay = 0.0f;
+			mCurrentMenuItem = MenuItem::INTRUCTIONS;
+			mMenuPointer.setPosition(280, 330);
+			mMenu->mInputDelay = 0.0f;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && mCurrentMenuItem == MenuItem::INTRUCTIONS && mMenu->getInputDelayed()) {
-				mCurrentMenuItem = MenuItem::PLAY;
-				mMenuPointer.setPosition(280, 300);
-				mMenu->mInputDelay = 0.0f;
+			mCurrentMenuItem = MenuItem::PLAY;
+			mMenuPointer.setPosition(280, 300);
+			mMenu->mInputDelay = 0.0f;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && mMenu->getInputDelayed()) {
 			if (mCurrentMenuItem == MenuItem::PLAY) {
-					mMainMenuRunning = false;
-					mGame->getWindow()->clear();
-					mGame->run();
-					mMenu->mInputDelay = 0.0f;
+				mMainMenuRunning = false;
+				mGame->getWindow()->clear();
+				mGame->run();
+				mMenu->mInputDelay = 0.0f;
 			}
 			if (mCurrentMenuItem == MenuItem::QUIT) {
-					mMainMenuRunning = false;
-					mMenu->mInputDelay = 0.0f;
+				mMainMenuRunning = false;
+				mMenu->mInputDelay = 0.0f;
 			}
 			if (mCurrentMenuItem == MenuItem::INTRUCTIONS) {
-					mMainMenuRunning = false;
-					mMenu->runInstructionPage();
-					mMenu->mInputDelay = 0.0f;
+				mMainMenuRunning = false;
+				mMenu->runInstructionPage();
+				mMenu->mInputDelay = 0.0f;
 
 			}
 		}
-		if (sf::Keyboard::isKeyPressed() {
-			mMenu->setInputDelayed(true);
-		}
-		else {
-			mMenu->setInputDelayed(false);
-		}
-
 
 	}
 
+
+	
 }
+
+
+
 
 

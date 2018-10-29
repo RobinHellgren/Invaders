@@ -1,0 +1,22 @@
+﻿  Asteroid.cpp
+c:\users\robzz\source\repos\invaders\invaders\asteroids\gameobject.h(2): fatal error C1083: Cannot open include file: 'SFML\Graphics.hpp': No such file or directory
+  GameObjectHandler.cpp
+c:\users\robzz\source\repos\invaders\invaders\asteroids\gameobject.h(2): fatal error C1083: Cannot open include file: 'SFML\Graphics.hpp': No such file or directory
+  Coin.cpp
+c:\users\robzz\source\repos\invaders\invaders\asteroids\gameobject.h(2): fatal error C1083: Cannot open include file: 'SFML\Graphics.hpp': No such file or directory
+  Game.cpp
+c:\users\robzz\source\repos\invaders\invaders\asteroids\gameobject.h(2): fatal error C1083: Cannot open include file: 'SFML\Graphics.hpp': No such file or directory
+  GameObject.cpp
+c:\users\robzz\source\repos\invaders\invaders\asteroids\gameobject.h(2): fatal error C1083: Cannot open include file: 'SFML\Graphics.hpp': No such file or directory
+  GameOverScreen.cpp
+  InstructionPage.cpp
+c:\users\robzz\source\repos\invaders\invaders\asteroids\instructionpage.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  main.cpp
+c:\users\robzz\source\repos\invaders\invaders\asteroids\gameobject.h(2): fatal error C1083: Cannot open include file: 'SFML\Graphics.hpp': No such file or directory
+  MainMenu.cpp
+c:\users\robzz\source\repos\invaders\invaders\asteroids\mainmenu.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  MenuManager.cpp
+c:\users\robzz\source\repos\invaders\invaders\asteroids\menumanager.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  Player.cpp
+c:\users\robzz\source\repos\invaders\invaders\asteroids\gameobject.h(2): fatal error C1083: Cannot open include file: 'SFML\Graphics.hpp': No such file or directory
+  Generating Code...

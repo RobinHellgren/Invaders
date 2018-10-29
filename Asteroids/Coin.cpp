@@ -46,14 +46,7 @@ void Coin::update(){
 void Coin::spawn(){
 }
 
-void Coin::colide(GameObject * objectColidedWith){
-	if(objectColidedWith->mType == ObjectType::PLAYER && mInPlay){
-		mGame->increaseLevel();
-		setRandomLocation();
-		mInPlay = false;
-		std::cout << mGame->getLevel() << std::endl;
-	}
-}
+
 
 void Coin::setRandomLocation(){
 	std::random_device device;

@@ -12,8 +12,6 @@ public:
 	//Constructor
 	GameObjectHandler(Game* game);
 	~GameObjectHandler();
-	//Function that spawns new asteroids if the spawn delay is big enough and if there aren't enough asteroids on the screen
-	void spawnAsteroids();
 	//Function som tar bort object som lämnat skärmen eller object som är märkta för borttagning
 	void pruneGameObjects();
 	//Reparerar listan men spel object efter den blivit manipulerad
@@ -22,11 +20,13 @@ public:
 	void checkForCollisions();
 	//Function that returns the distance between two objects
 	int getDistanceBetweenObjects(GameObject* obj1, GameObject* obj2);
+	void spawnInvaders();
+	void drawObjects();
 private:
 	//Counter that keep track of how many asteroids are on the screen
-	int mAsteroidAmount;
+	int mInvaderAmount;
 	//Timer that delay between asteroid spawns
-	float mAsteroidSpawnClock;
+	float mInvaderSpawnClock;
 	//Pointer to the game instance to give access to variables
 	Game* mGame; 
 	//Tempoary list with gameobjects that are supposed to be deleted
@@ -37,8 +37,7 @@ private:
 };
 //Constant config variables
 namespace {
-	const int BASE_NUMBER_OF_ASTEROIDS = 5;
-	const double ASTEROID_SPAWN_DELTA = 0.5;
-	const float ASTEROID_SPAWN_DELAY = 0.1f;
+	const int INVADER_LIMIT = 10;
+	const float INVADER_SPAWN_DELAY = 1.0f;
 }
 

@@ -7,11 +7,13 @@ Player::Player(Game* mGamePointer){
 	mGame = mGamePointer;
 	mSprite = new sf::Sprite;
 	mSprite->setTexture(*mGame->getGameTextures());
-	mSprite->setTextureRect(sf::IntRect(16, 0, 32, 34));
-	mSprite->setPosition(400, 300);
-	mSprite->setOrigin(16, 16);
-	mType = ObjectType::PLAYER;
-	radius = 16;
+	mSprite->setTextureRect(sf::IntRect(0, 0, 96, 105));
+	mSprite->setPosition(400, 0);
+	mSprite->setOrigin(48, 52.5f);
+	mType = ObjectType::SHIP;
+	mFaction = Faction::PLAYER;
+	radius = 35;
+	mHealth = 5;
 }
 
 
@@ -22,42 +24,60 @@ Player::~Player(){
 
 void Player::movement() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		getMSprite()->rotate(mGame->getDeltaTime() * -PLAYER_ROTATION_SPEED);
+		mSprite->move(-PLAYER_FOWARD_SPEED * mGame->getDeltaTime(), 0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		getMSprite()->rotate(mGame->getDeltaTime() * PLAYER_ROTATION_SPEED);
+		mSprite->move(PLAYER_FOWARD_SPEED * mGame->getDeltaTime(), 0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		float x = sinf(getMSprite()->getRotation() * 3.14 / 180) * PLAYER_FOWARD_SPEED;
-		float y = -cosf(getMSprite()->getRotation() * 3.14 / 180) * PLAYER_FOWARD_SPEED;
-		if (getMSprite()->getPosition().x > (800 - radius)) {
-			x -= PLAYER_FOWARD_SPEED;
-		}
-		if (getMSprite()->getPosition().x < (0 + radius)) {
-			x += PLAYER_FOWARD_SPEED;
-		}
-		if (getMSprite()->getPosition().y > (600 - radius)) {
-			y-= PLAYER_FOWARD_SPEED;
-		}
-		if (getMSprite()->getPosition().y < 0 + radius) {
-			y+= PLAYER_FOWARD_SPEED;
-		}
-		getMSprite()->move(x * mGame->getDeltaTime(), y * mGame->getDeltaTime());
-	}	
+		mSprite->move(0, -PLAYER_FOWARD_SPEED * mGame->getDeltaTime());
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		mSprite->move(0, PLAYER_FOWARD_SPEED * mGame->getDeltaTime());
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		fire();
+	}
+}
+void Player::fire(){
+	if (mFireTimer > FIRE_DELAY) {
+		mGame->mGameObjects->push_back(new Bullet(mGame, *mSprite, mFaction, BulletType::CENTRAl));
+		mGame->mGameObjects->push_back(new Bullet(mGame, *mSprite, mFaction, BulletType::LEFT));
+		mGame->mGameObjects->push_back(new Bullet(mGame, *mSprite, mFaction, BulletType::RIGHT));
+		mFireTimer = 0;
+	}
+	mFireTimer += mGame->getDeltaTime();
+
 }
 void  Player::update() {
 	movement();
-	mGame->getWindow()->draw(*getMSprite());
+	constrain();
+
+	if (mHealth <= 0) {
+		mGame->setGameIsntOver(false);
+	}
 }
 void Player::spawn() {
-	mGame->getWindow()->draw(*mSprite);
+	
 }
 
 void Player::colide(GameObject* objectColidedWith){
-	if (objectColidedWith->mType == ObjectType::ASTEROID) {
-		mGame->setGameIsntOver(false);
+	if (objectColidedWith->mFaction == Faction::ENEMY) {
+		mHealth--;
 	}
-	if (objectColidedWith->mType == ObjectType::COIN) {
+}
 
+void Player::constrain(){
+	if (mSprite->getPosition().x < 0 + radius) {
+		mSprite->move(PLAYER_FOWARD_SPEED * mGame->getDeltaTime(), 0);
+	}
+	if (mSprite->getPosition().x > config::GAME_RESOLUTION.width - radius) {
+		mSprite->move(-PLAYER_FOWARD_SPEED * mGame->getDeltaTime(), 0);
+	}
+	if (mSprite->getPosition().y < 0 + radius) {
+		mSprite->move(0, PLAYER_FOWARD_SPEED * mGame->getDeltaTime());
+	}
+	if (mSprite->getPosition().y > config::GAME_RESOLUTION.height - radius) {
+		mSprite->move(0, -PLAYER_FOWARD_SPEED * mGame->getDeltaTime());
 	}
 }

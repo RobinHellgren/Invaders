@@ -6,7 +6,9 @@ class Game;
 class GameObject {
 	
 public:
-	enum class ObjectType { PLAYER, ASTEROID, COIN };
+	enum class ObjectType { SHIP, BULLET, EXPLOSION };
+	enum class Faction {PLAYER, ENEMY, NEUTRAL};
+	enum class BulletType {CENTRAl, LEFT, RIGHT};
 	GameObject();
 	~GameObject();
 	
@@ -16,6 +18,7 @@ public:
 	sf::Sprite* getMSprite();
 	
 	ObjectType mType;
+	Faction mFaction;
 	int radius;
 	Game* mGame;
 	sf::Sprite* mSprite;
