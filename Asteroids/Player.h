@@ -17,6 +17,7 @@ private:
 	void movement();
 	void fire();
 
+	sf::Vector2f mMovement;
 	float mFireTimer;
 	int mHealth;
 };

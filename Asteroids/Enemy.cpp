@@ -38,9 +38,6 @@ void Enemy::colide(GameObject * objectColidedWith){
 		mGame->mGameObjects->push_back(new Explosion(mGame, this));
 
 	}
-	if (objectColidedWith->mType == ObjectType::SHIP) {
-		mMovementVector.x = -mMovementVector.x;
-	}
 }
 
 void Enemy::fire(){

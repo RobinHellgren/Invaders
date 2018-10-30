@@ -8,7 +8,7 @@ Player::Player(Game* mGamePointer){
 	mSprite = new sf::Sprite;
 	mSprite->setTexture(*mGame->getGameTextures());
 	mSprite->setTextureRect(sf::IntRect(0, 0, 96, 105));
-	mSprite->setPosition(400, 0);
+	mSprite->setPosition(config::GAME_RESOLUTION.width/2, config::GAME_RESOLUTION.height - radius);
 	mSprite->setOrigin(48, 52.5f);
 	mType = ObjectType::SHIP;
 	mFaction = Faction::PLAYER;
@@ -23,21 +23,30 @@ Player::~Player(){
 
 
 void Player::movement() {
+	mMovement = sf::Vector2f(0, 0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		mSprite->move(-PLAYER_FOWARD_SPEED * mGame->getDeltaTime(), 0);
+		mMovement.x += -PLAYER_FOWARD_SPEED;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		mSprite->move(PLAYER_FOWARD_SPEED * mGame->getDeltaTime(), 0);
+		mMovement.x += PLAYER_FOWARD_SPEED;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		mSprite->move(0, -PLAYER_FOWARD_SPEED * mGame->getDeltaTime());
+		mMovement.y += -PLAYER_FOWARD_SPEED;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		mSprite->move(0, PLAYER_FOWARD_SPEED * mGame->getDeltaTime());
+		mMovement.y += PLAYER_FOWARD_SPEED;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		fire();
 	}
+	if (mMovement.x != 0 || mMovement.y != 0) {
+		mSprite->setTextureRect(sf::IntRect(100, 0, 89, 96));
+		mSprite->move(mMovement * mGame->getDeltaTime());
+	}
+	else {
+		mSprite->setTextureRect(sf::IntRect(0, 0, 96, 105));
+	}
+
 }
 void Player::fire(){
 	if (mFireTimer > FIRE_DELAY) {
@@ -69,13 +78,13 @@ void Player::colide(GameObject* objectColidedWith){
 
 void Player::constrain(){
 	if (mSprite->getPosition().x < 0 + radius) {
-		mSprite->move(PLAYER_FOWARD_SPEED * mGame->getDeltaTime(), 0);
+		mSprite->move(PLAYER_FOWARD_SPEED  * mGame->getDeltaTime(), 0);
 	}
 	if (mSprite->getPosition().x > config::GAME_RESOLUTION.width - radius) {
-		mSprite->move(-PLAYER_FOWARD_SPEED * mGame->getDeltaTime(), 0);
+		mSprite->move(-PLAYER_FOWARD_SPEED  *  mGame->getDeltaTime(), 0);
 	}
 	if (mSprite->getPosition().y < 0 + radius) {
-		mSprite->move(0, PLAYER_FOWARD_SPEED * mGame->getDeltaTime());
+		mSprite->move(0, PLAYER_FOWARD_SPEED  * mGame->getDeltaTime());
 	}
 	if (mSprite->getPosition().y > config::GAME_RESOLUTION.height - radius) {
 		mSprite->move(0, -PLAYER_FOWARD_SPEED * mGame->getDeltaTime());

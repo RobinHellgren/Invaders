@@ -15,5 +15,5 @@ private:
 	float mAnimationTimer;
 
 };
-namespace { const float ANIMATION_TIME = 0.2f; }
+namespace { const float ANIMATION_TIME = 0.5f; }
 
